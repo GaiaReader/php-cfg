@@ -1,0 +1,19 @@
+<?php
+
+$a = 'b';
+$b = 'foo';
+echo $$a;
+-----
+Block#1
+    Expr_Assign
+        var: Var#1<$a>
+        expr: LITERAL('b')
+        result: Var#2
+    Expr_Assign
+        var: Var#3<$b>
+        expr: LITERAL('foo')
+        result: Var#4
+    Terminal_Echo
+        expr: UNKNOWN
+    Terminal_Return
+        expr: LITERAL(1)
