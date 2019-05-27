@@ -48,3 +48,29 @@ EOF
         ];
     }
 }
+/*
+Block#1
+    Stmt_Function<foo>
+    Terminal_Return
+        expr: LITERAL(1)
+
+Function foo():
+Block#1
+    Expr_Param
+        name: LITERAL('a')
+        result: Var#1<$a>
+    Expr_ArrayDimFetch
+        var: Var#1<$a>
+        result: Var#2
+    Expr_Assign
+        var: Var#2
+        expr: LITERAL(1)
+        result: Var#3
+    Terminal_Return
+        expr: LITERAL(NULL)
+可以看出 $a[]=1;
+分解为
+$tmp = $a[];
+$tmp = 1;
+
+*/

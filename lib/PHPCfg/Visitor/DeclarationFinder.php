@@ -13,6 +13,7 @@ use PHPCfg\Block;
 use PHPCfg\Op;
 use PHPCfg\AbstractVisitor;
 
+// 声明查找器，查找Trait,Class,Interface,ClassMethod,Function,Const
 class DeclarationFinder extends AbstractVisitor {
     
     protected $traits = [];

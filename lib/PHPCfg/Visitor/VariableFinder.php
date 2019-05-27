@@ -13,6 +13,7 @@ use PHPCfg\Block;
 use PHPCfg\Op;
 use PHPCfg\AbstractVisitor;
 
+// 变量查找器，help
 class VariableFinder extends AbstractVisitor {
     protected $variables;
 

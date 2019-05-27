@@ -15,6 +15,7 @@ use PHPCfg\Op;
 use PHPCfg\Operand;
 use PHPCfg\AbstractVisitor;
 
+// 记录函数调用信息，记录的节点包括FuncCall、NsFuncCall、MethodCall、StaticCall、New_
 class CallFinder extends AbstractVisitor {
     /** @var Func[] */
     protected $funcStack = [];
