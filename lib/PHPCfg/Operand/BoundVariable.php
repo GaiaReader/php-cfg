@@ -9,6 +9,7 @@
 
 namespace PHPCfg\Operand;
 
+// 绑定变量
 class BoundVariable extends Variable {
     const SCOPE_GLOBAL = 1;
     const SCOPE_LOCAL  = 2;

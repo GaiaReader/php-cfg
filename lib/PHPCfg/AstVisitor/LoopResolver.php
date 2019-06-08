@@ -15,6 +15,8 @@ use PhpParser\Node\Stmt\Goto_;
 use PhpParser\Node\Stmt\Label;
 use PhpParser\NodeVisitorAbstract;
 
+// 循环分析，搞了两个栈用于存储，一个是continueStack和breakStack，用于确定continue和break能够跳到哪个位置
+// 发现有循环，则加个lable，
 class LoopResolver extends NodeVisitorAbstract {
     
     protected static $labelCounter = 0;
@@ -36,6 +38,7 @@ class LoopResolver extends NodeVisitorAbstract {
             case 'Stmt_While':
             case 'Stmt_For':
             case 'Stmt_Foreach':
+            // 进入node时压栈
                 $this->continueStack[] = $this->makeLabel();
                 $this->breakStack[] = $this->makeLabel();
                 break;
@@ -49,9 +52,11 @@ class LoopResolver extends NodeVisitorAbstract {
             case 'Stmt_While':
             case 'Stmt_For':
             case 'Stmt_Foreach':
+            // 退出时弹栈
                 $node->stmts[] = new Label(array_pop($this->continueStack));
                 return [$node, new Label(array_pop($this->breakStack))];
             case 'Stmt_Switch':
+                // php的continue是个有点微妙的东西，后面可以加数字，continue 1跳一层循环，在switch中相当于break，其他的数字是跳到某层循环，继续下一个
                 array_pop($this->continueStack);
                 return [$node, new Label(array_pop($this->breakStack))];
         }

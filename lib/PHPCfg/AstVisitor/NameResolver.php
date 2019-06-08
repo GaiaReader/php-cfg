@@ -13,6 +13,7 @@ use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\NodeVisitor\NameResolver as NameResolverParent;
 
+// 名字空间分析，继承自nikic/php-parser,增加了对Doc Comment的分析
 class NameResolver extends NameResolverParent {
 
     protected static $builtInTypes = [

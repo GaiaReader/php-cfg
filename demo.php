@@ -4,7 +4,7 @@ use PhpParser\ParserFactory;
 
 require __DIR__ . "/vendor/autoload.php";
 
-$graphviz = false;
+$graphviz = true;
 list($fileName, $code) = getCode($argc, $argv);
 
 $parser = new PHPCfg\Parser((new ParserFactory)->create(ParserFactory::PREFER_PHP7));
@@ -15,6 +15,7 @@ $variables = new PHPCfg\Visitor\VariableFinder;
 
 $traverser = new PHPCfg\Traverser;
 
+// 这几个visitor是针对cfg的，要进一步分析如何应用cfg，需要认真分析这几个visitor
 $traverser->addVisitor($declarations);
 $traverser->addVisitor($calls);
 $traverser->addVisitor(new PHPCfg\Visitor\Simplifier);

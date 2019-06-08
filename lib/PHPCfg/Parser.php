@@ -49,9 +49,9 @@ class Parser {
             $astTraverser = new AstTraverser;
         }
         $this->astTraverser = $astTraverser;
-        $this->astTraverser->addVisitor(new AstVisitor\NameResolver);
-        $this->astTraverser->addVisitor(new AstVisitor\LoopResolver);
-        $this->astTraverser->addVisitor(new AstVisitor\MagicStringResolver);
+        $this->astTraverser->addVisitor(new AstVisitor\NameResolver); // 名字空间分析
+        $this->astTraverser->addVisitor(new AstVisitor\LoopResolver); // 循环分析
+        $this->astTraverser->addVisitor(new AstVisitor\MagicStringResolver);  // 魔术字符串分析 help
     }
 
     /**
@@ -70,8 +70,10 @@ class Parser {
      */
     public function parseAst($ast, $fileName) {
         $this->fileName = $fileName;
+        // 应用 ast上的几个遍历操作
         $ast = $this->astTraverser->traverse($ast);
 
+        // Script包含Funcs 和 main func
         $this->script = $script = new Script();
         $script->functions = [];
         $script->main = new Func('{main}', 0, null, null);
@@ -86,6 +88,7 @@ class Parser {
     }
 
     protected function parseFunc(Func $func, array $params, array $stmts, $implicitReturnValue) {
+        // 切换栈帧
         // Switch to new function context
         $prevCtx = $this->ctx;
         $this->ctx = new FuncContext;
@@ -673,7 +676,7 @@ class Parser {
     protected function parseExprNode($expr) {
         if (is_null($expr)) {
             return null;
-        } elseif (is_scalar($expr)) {
+        } elseif (is_scalar($expr)) { // 标量
             return new Literal($expr);
         } elseif (is_array($expr)) {
             $list = $this->parseExprList($expr);

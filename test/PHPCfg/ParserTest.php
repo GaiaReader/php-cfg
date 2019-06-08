@@ -38,7 +38,15 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function provideTestParseAndDump() {
-        $dir = __DIR__ . '/../code';
+        $file = __DIR__ . '/../code/varvar.test';
+        $contents = file_get_contents($file);
+        yield basename($file) => explode('-----', $contents);
+
+
+    }
+    /*
+    public function provideTestParseAndDump() {
+        $dir = __DIR__ . '/../code/';
         $iter = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($dir), \RecursiveIteratorIterator::LEAVES_ONLY);
 
@@ -51,7 +59,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
             yield $file->getBasename() => explode('-----', $contents);
         }
     }
-
+    */
     private function canonicalize($str) {
         // trim from both sides
         $str = trim($str);

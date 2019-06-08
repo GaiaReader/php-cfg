@@ -12,6 +12,7 @@ namespace PHPCfg\AstVisitor;
 use PhpParser\Node;
 use PhpParser\NodeVisitorAbstract;
 
+// 原创，魔术字符串解析
 class MagicStringResolver extends NodeVisitorAbstract {
     
     protected $classStack = [];

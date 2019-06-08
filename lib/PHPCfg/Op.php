@@ -12,7 +12,7 @@ namespace PHPCfg;
 abstract class Op {
     
     protected $attributes = [];
-    protected $writeVariables = [];
+    protected $writeVariables = []; // 写变量
 
     public function __construct(array $attributes = []) {
         $this->attributes = $attributes;
@@ -53,10 +53,12 @@ abstract class Op {
 
     abstract public function getSubBlocks();
 
+    // 是被写的变量？
     public function isWriteVariable($name) {
         return in_array($name, $this->writeVariables);
     }
 
+    // 添加读引用
     protected function addReadRef($op) {
         if (is_array($op)) {
             $new = [];
@@ -70,6 +72,7 @@ abstract class Op {
         return $op->addUsage($this);
     }
 
+    // 添加写引用
     protected function addWriteRef($op) {
         if (is_array($op)) {
             $new = [];

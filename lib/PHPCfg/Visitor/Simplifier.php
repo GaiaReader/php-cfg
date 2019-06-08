@@ -15,7 +15,7 @@ use PHPCfg\Op;
 use PHPCfg\Operand;
 use PHPCfg\AbstractVisitor;
 
-// 实现了简单地转换为三地址码， help
+// 实现转换为静态单赋值形式， help
 class Simplifier extends AbstractVisitor {
     /** @var \SplObjectStorage */
     protected $removed;
